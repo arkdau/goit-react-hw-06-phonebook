@@ -1,6 +1,4 @@
-export const statusFilter = Object.freeze({
-  all: "all",
-  active: "active",
-  completed: "completed",
-});
-
+// export const statusFilter = Object.freeze({
+//   name: "",
+// });
+//

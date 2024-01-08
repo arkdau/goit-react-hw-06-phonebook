@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import css from "./Contacts.module.css";
 import { addContact } from "./../../redux/actions";
 
-function ContactForm(props) {
+function ContactForm() {
   const dispatch = useDispatch();
   // const notify = (name) => toast.warning(`${name} is already in contacts !`);
 

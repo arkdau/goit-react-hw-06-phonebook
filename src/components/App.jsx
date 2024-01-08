@@ -10,44 +10,46 @@ export const App = () => {
   //   { name: "", id: "", number: "" },
   // ];
 
-  const [contacts, setContacts] = useState([]);
+  // const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState("");
   const [isLoad, setIsLoad] = useState(false);
 
-  const onAddItem = (name, number) => {
-    if (checkItem(name).length === 0) {
-      const arr = [{ name: name, id: nanoid(), number: number }];
-
-      setContacts([...contacts, ...arr]);
-
-      return false;
-    } else {
-      return true;
-    }
-  };
+  // const onAddItem = (name, number) => {
+  //   if (checkItem(name).length === 0) {
+  //     const arr = [{ name: name, id: nanoid(), number: number }];
+  //
+  //     setContacts([...contacts, ...arr]);
+  //
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // };
 
   useEffect(() => {
     const upContacts = localStorage.load("contacts");
     if (upContacts !== undefined) {
       // this.setState({ contacts: contacts });
-      setContacts(upContacts);
+      // setContacts(upContacts);
       setIsLoad(true);
     }
 
-    console.log("App-contacts: ", contacts);
-    console.log("App-upContacts: ", contacts);
+    setIsLoad(true);
+
+    // console.log("App-contacts: ", contacts);
+    // console.log("App-upContacts: ", contacts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onRemoveItem = (i) => {
-    setContacts(
-      contacts.filter((item) => i !== item.id),
-    );
-  };
+  // const onRemoveItem = (i) => {
+  //   setContacts(
+  //     contacts.filter((item) => i !== item.id),
+  //   );
+  // };
 
-  const checkItem = (name) => {
-    return contacts.filter((item) => item.name.includes(name));
-  };
+  // const checkItem = (name) => {
+  //   return contacts.filter((item) => item.name.includes(name));
+  // };
 
   const handleChangeInput = (evt) => {
     evt.preventDefault();
@@ -55,25 +57,20 @@ export const App = () => {
     setFilter(filter);
   };
 
-  const contactsFilter = () => {
-    return (
-      contacts.filter((item) => item.name.includes(filter))
-    );
-  };
+  // const contactsFilter = () => {
+  //   return (
+  //     contacts.filter((item) => item.name.includes(filter))
+  //   );
+  // };
 
   return (
     <>
       <h1>Phonebook</h1>
-      <ContactForm addItem={onAddItem} />
+      <ContactForm />
 
       <h2>Contacts</h2>
       <Filter onChange={handleChangeInput} />
-      {isLoad && (
-        <ContactList
-          contacts={contactsFilter()}
-          removeItem={onRemoveItem}
-        />
-      )}
+      {isLoad && <ContactList />}
     </>
   );
 };

@@ -4,13 +4,41 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 // import { Component } from "react";
 import * as localStorage from "./../../storage";
+import { Contact } from "./../Contact/Contact";
+
+const getVisibleContacts = (contacts, statusFilter) => {
+  // switch (statusFilter) {
+  //   case statusFilters.active:
+  //     return tasks.filter(task => !task.completed);
+  //   case statusFilters.completed:
+  //     return tasks.filter(task => task.completed);
+  //   default:
+  //     return tasks;
+  // }
+
+  // return contacts.name === statusFilter
+
+
+  console.log("statusFilter: ", statusFilter.text);
+
+  return (
+    statusFilter
+      ? contacts.filter((item) => item.name.includes(statusFilter.text))
+      : contacts
+  );
+};
 
 function ContactList(props) {
+  const contacts = useSelector(getContact);
+  const statusFilter = useSelector(getStatusFilter);
 
-const contacts = useSelector(getContact);
-// const statusFilter = useSelector(getStatusFilter);
+  const visibleContacts = getVisibleContacts(contacts, statusFilter);
 
-// const visibleContact = getVisibleContact(contact, statusFilter);
+  console.log("ContactList-contact: ", contacts);
+
+  // const statusFilter = useSelector(getStatusFilter);
+
+  // const visibleContact = getVisibleContact(contact, statusFilter);
 
   // console.log("props-contacts: ", props.contacts);
 
@@ -30,19 +58,29 @@ const contacts = useSelector(getContact);
     localStorage.save("contacts", props.contacts);
   }, [props.contacts]);
 
+  // const contactsFilter = () => {
+  //   return (
+  //     contacts.filter((item) => item.name.includes(filter))
+  //     contacts
+  //   );
+  // };
+
   return (
     <>
       <ul>
-        {contacts.map((item) => {
+        {(visibleContacts || []).map((item) => {
           return (
             <li key={item.id}>
-              {item.name}: {item.number}
+              {
+                /*{item.name}: {item.number}
               <button
                 type="button"
                 onClick={() => props.removeItem(item.id)}
               >
                 Remove
-              </button>
+              </button>*/
+              }
+              <Contact contact={item} />
             </li>
           );
         })}

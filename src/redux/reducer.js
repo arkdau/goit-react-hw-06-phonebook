@@ -4,7 +4,7 @@ import {
   deleteContact,
   setStatusFilter,
 } from "./actions";
-import { statusFilter } from "./constants";
+// import { statusFilter } from "./constants";
 
 const contactInitialState = [];
 
@@ -28,7 +28,7 @@ export const contactReducer = createReducer(contactInitialState, (builder) => {
 
 
  const filterInitialState = {
-   status: statusFilter.all,
+   status: "",
  };
 
  export const filterReducer = createReducer(filterInitialState, (builder) => {
