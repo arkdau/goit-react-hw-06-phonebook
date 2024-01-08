@@ -1,24 +1,15 @@
 import { useDispatch } from "react-redux";
 import { setStatusFilter } from "./../../redux/actions";
 
+const Filter = () => {
+  const dispatch = useDispatch();
 
-
-const Filter = ({ onChange }) => {
-const dispatch = useDispatch();
-
- // const handleDelete = () => dispatch(deleteContact(contact.id));
-
-const handleChangeInput = (evt) => {
-  evt.preventDefault();
-  const filter = evt.currentTarget.value;
-  // setFilter(filter);
-dispatch(setStatusFilter(filter));
-};
-
-
-
-
-
+  const handleChangeInput = (evt) => {
+    evt.preventDefault();
+    const filter = evt.currentTarget.value;
+    // setFilter(filter);
+    dispatch(setStatusFilter(filter));
+  };
 
   return (
     <>
