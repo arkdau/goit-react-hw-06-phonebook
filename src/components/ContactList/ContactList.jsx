@@ -29,7 +29,7 @@ function ContactList() {
   useEffect(() => {
     const upContacts = localStorage.load("contacts");
     upContacts.map((item) => {
-      dispatch(addContact(item.name, item.number));
+      return dispatch(addContact(item.name, item.number));
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
