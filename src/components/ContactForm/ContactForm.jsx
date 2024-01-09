@@ -1,12 +1,20 @@
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import css from "./Contacts.module.css";
 import { addContact } from "./../../redux/actions";
+import { getContact } from "./../../redux/selectors";
 
 function ContactForm() {
   const dispatch = useDispatch();
-  // const notify = (name) => toast.warning(`${name} is already in contacts !`);
+  const contacts = useSelector(getContact);
+
+  const notify = (name) => toast.warning(`${name} is already in contacts !`);
+
+  const checkItem = (name) => {
+    return contacts.filter((item) => item.name.includes(name));
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -15,14 +23,11 @@ function ContactForm() {
     const name = form.elements.name.value;
     const number = form.elements.number.value;
 
-    // console.log("OnSubmit - name: ", name);
-    // console.log("OnSubmit - number: ", number);
-
-    // if (props.addItem(name, number)) {
-    //   notify(name);
-    // }
-
-    dispatch(addContact(name, number));
+    if (checkItem(name).length === 0) {
+      dispatch(addContact(name, number));
+    } else {
+      notify(name);
+    }
 
     form.reset();
   };
