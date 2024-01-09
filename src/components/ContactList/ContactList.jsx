@@ -1,10 +1,10 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getContact, getStatusFilter } from "./../../redux/selectors";
-import PropTypes from "prop-types";
-import { useEffect } from "react";
-// import { Component } from "react";
 import * as localStorage from "./../../storage";
 import { Contact } from "./../Contact/Contact";
+import { addContact } from "./../../redux/actions";
 
 const getVisibleContacts = (contacts, statusFilter) => {
   console.log("statusFilter: ", statusFilter.text);
@@ -17,6 +17,8 @@ const getVisibleContacts = (contacts, statusFilter) => {
 };
 
 function ContactList() {
+  const dispatch = useDispatch();
+
   const contacts = useSelector(getContact);
   const statusFilter = useSelector(getStatusFilter);
 
@@ -24,9 +26,18 @@ function ContactList() {
 
   console.log("ContactList-contact: ", contacts);
 
-  // useEffect(() => {
-  //   localStorage.save("contacts", props.contacts);
-  // }, [props.contacts]);
+  useEffect(() => {
+    const upContacts = localStorage.load("contacts");
+    upContacts.map((item) => {
+      dispatch(addContact(item.name, item.number));
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    localStorage.save("contacts", contacts);
+  }, [contacts]);
 
   return (
     <>
